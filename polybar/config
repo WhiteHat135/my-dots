@@ -1,0 +1,179 @@
+[colors]
+background = #BCC3C3
+background-alt = #002B36
+foreground = #002B36
+foreground-alt = #BCC3C3
+primary = #ffb52a
+secondary = #e60053
+alert = #FF0000
+
+[bar/bar_top]
+;monitor = "VGA1"
+width = 100%
+height = 22
+radius = 6.0
+fixed-center = true
+bottom = no
+
+foreground = ${colors.foreground-alt}
+background = ${colors.background-alt}
+
+line-size = 3
+line-color = #dfdfdf
+
+;border-top-size = 8
+border-bottom-size = 0
+border-left-size = 0
+border-right-size = 0
+
+padding-left = 0 
+padding-right = 0
+
+module-margin-left = 0
+module-margin-right = 0
+
+;font-0 = Hack:pixelsize=10;1
+font-0 = Hack:pixelsize=9;3
+;font-1 = unifont:fontformal=truetype:size=0:antialias=false;0
+font-1 = "Wuncon Siji:pixelsize=10;3"
+;font-4 = "FontAwesome5Free:size=10;5"
+font-3 = "FontAwesome5Free:style=Solid:pixelsize=10;3"
+font-4 = "FontAwesome5Brands:style=Solid:pixelsize=10;3"
+font-2 = "Weather Icons:style=Regular:size=10;2"
+font-5 = FontAwesome 5 Free:pixelsize=10;3"
+
+;separator = " "
+
+modules-left = i3 trash
+modules-right = wired-network cpu memory updates-arch-combined openweathermap-fullfeatured date xkeyboard2 
+
+tray-position = right
+tray-padding = 0
+tray-detached = false
+tray-maxsize = 14
+tray-scale = 1.0
+tray-background = ${colors.background-alt}
+tray-foreground = ${colors.foreground-alt}
+tray-offset-x = 0
+tray-offset-y = 0
+
+wm-restack = i3
+
+scroll-up = i3wm-wsnext
+scroll-down = ns-resize
+
+cursor-click = pointer
+
+[module/i3]
+type = internal/i3
+pin-workspaces = true
+strip-wsnumbers = true
+index-sort = true
+enable-click = true
+enable-scroll = true
+reverse-scroll = true
+wrapping-scroll = true
+fuzzy-match = true
+format = <label-state> <label-mode>
+label-mode = | %mode% 
+;label-mode-padding = 1 
+label-mode-background - #0f735d
+label-focused = %index%
+label-focused-foreground = #002B36
+label-focused-background = #f3f3f3
+label-focused-padding = 1
+label-unfocused = %index%
+label-unfocused-padding = 1 
+
+[module/openweathermap-fullfeatured]
+type = custom/script
+exec = ~/soft/polybar/openweathermap-fullfeatured.sh
+interval = 600
+label-font = 2
+format-font = 2
+
+
+[module/trash]
+type = custom/script
+exec = ~/soft/polybar/trash.sh
+interval = 60
+click-left = ~/soft/polybar/trash.sh --clean
+
+[module/updates-arch-combined]
+type = custom/script
+exec = ~/soft/polybar/updates-arch-combined.sh
+interval = 600
+label-font = 4 
+
+[module/date]
+type = internal/date
+interval = 1
+time =  %d/%m/%Y |  %H:%M:%S |
+format-prefix-foreground = ${colors.foreground-alt}
+label = | %time%
+format = %{A1:zenity --calendar:} <label> %{A}
+label-font = 4
+
+[module/cpu]
+format-label = internal/cpu
+format = <label> <ramp-load> 
+ramp-load-0 = ▁ 
+ramp-load-1 = ▂ 
+ramp-load-2 = ▃ 
+ramp-load-3 = ▄ 
+ramp-load-4 = ▅ 
+ramp-load-5 = ▆ 
+ramp-load-6 = ▇ 
+ramp-load-7 = █ 
+type = internal/cpu
+interval = 2
+label = " |  %percentage:2:2%% "
+label-font = 4
+
+[module/memory]
+type = internal/memory
+interval = 2
+label = " |  %percentage_used:2:2%% "
+format = <label> <ramp-used> 
+ramp-used-0 = ▁
+ramp-used-1 = ▂
+ramp-used-2 = ▃
+ramp-used-3 = ▄
+ramp-used-4 = ▅
+ramp-used-5 = ▆
+ramp-used-6 = ▇
+ramp-used-7 = █
+label-font = 4 
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+mount-0 = /
+mount-1 = /home
+label-mounted =  %mountpoint% %percentage_free%% of %total%
+;label-mounted-padding = 1
+label-font = 5
+
+[module/xkeyboard2]
+type = internal/xkeyboard
+label = "%label-layout%" 
+format-spacing = 0
+;format-separator = " "
+label-layout = %name%
+label-layout-padding = 1 
+label-layout-background = #002B3C
+label-layout-foreground = #BCC3C3
+blacklist-0 = num lock
+blacklist-1 = scroll lock
+blacklist-2 = caps lock
+layout-icon-default = some-icon
+layout-icon-1 = us;U 
+
+[module/wired-network]
+type = internal/network
+interface = enp2s0
+format-connected = <label-connected>
+label-connected = |  %local_ip%
+label-font = 3 
+ 
+ 
